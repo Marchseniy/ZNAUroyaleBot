@@ -28,6 +28,8 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -86,12 +88,10 @@ public class TelegramBot extends TelegramLongPollingBot {
         return chat != null ? chat.getUserName() : null;
     }
 
-    public void sendPhoto(Message originalMessage, String imagePath, String caption, ReplyKeyboard replyKeyboard, boolean isDisableNotify) {
-        File file = new File(imagePath);
-
+    public void sendPhoto(Message originalMessage, InputStream imageStream, String imageName, String caption, ReplyKeyboard replyKeyboard, boolean isDisableNotify) {
         SendPhoto sendPhoto = new SendPhoto();
         sendPhoto.setChatId(originalMessage.getChatId());
-        sendPhoto.setPhoto(new InputFile(file));
+        sendPhoto.setPhoto(new InputFile(imageStream, imageName));
         sendPhoto.setCaption(caption);
         sendPhoto.setReplyMarkup(replyKeyboard);
         sendPhoto.setDisableNotification(isDisableNotify);
@@ -104,15 +104,19 @@ public class TelegramBot extends TelegramLongPollingBot {
             execute(sendPhoto);
         } catch (TelegramApiException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                imageStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    public void sendPhoto(long chatId, String imagePath, String caption, ReplyKeyboard replyKeyboard, boolean isDisableNotify) {
-        File file = new File(imagePath);
-
+    public void sendPhoto(long chatId, InputStream imageStream, String imageName, String caption, ReplyKeyboard replyKeyboard, boolean isDisableNotify) {
         SendPhoto sendPhoto = new SendPhoto();
         sendPhoto.setChatId(chatId);
-        sendPhoto.setPhoto(new InputFile(file));
+        sendPhoto.setPhoto(new InputFile(imageStream, imageName));
         sendPhoto.setCaption(caption);
         sendPhoto.setReplyMarkup(replyKeyboard);
         sendPhoto.setDisableNotification(isDisableNotify);
@@ -121,6 +125,12 @@ public class TelegramBot extends TelegramLongPollingBot {
             execute(sendPhoto);
         } catch (TelegramApiException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                imageStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 

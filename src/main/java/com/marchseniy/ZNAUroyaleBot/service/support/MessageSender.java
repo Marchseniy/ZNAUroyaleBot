@@ -8,6 +8,8 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import java.io.InputStream;
+
 @Service
 public class MessageSender {
     private final TelegramBot bot;
@@ -59,12 +61,12 @@ public class MessageSender {
         executeMessage(sendMessage);
     }
 
-    public void sendPhoto(Message originalMessage, String imagePath, String caption, ReplyKeyboard replyKeyboard) {
-        bot.sendPhoto(originalMessage, imagePath, caption, replyKeyboard, false);
+    public void sendPhoto(Message originalMessage, InputStream imageStream, String imageName, String caption, ReplyKeyboard replyKeyboard) {
+        bot.sendPhoto(originalMessage, imageStream, imageName, caption, replyKeyboard, false);
     }
 
-    public void sendPhotoNotNotify(long chatId, String imagePath, String caption, ReplyKeyboard replyKeyboard) {
-        bot.sendPhoto(chatId, imagePath, caption, replyKeyboard, true);
+    public void sendPhotoNotNotify(long chatId, InputStream imageStream, String imageName, String caption, ReplyKeyboard replyKeyboard) {
+        bot.sendPhoto(chatId, imageStream, imageName, caption, replyKeyboard, true);
     }
 
     private void executeMessage(SendMessage message) {

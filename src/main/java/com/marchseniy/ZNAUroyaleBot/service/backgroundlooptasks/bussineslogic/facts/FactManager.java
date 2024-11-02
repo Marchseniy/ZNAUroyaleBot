@@ -5,6 +5,7 @@ import com.marchseniy.ZNAUroyaleBot.service.support.MessageSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.InputStream;
 import java.net.URL;
 
 @Component
@@ -29,15 +30,10 @@ public class FactManager implements Runnable {
 
             String imagePath = fact.getImagePath();
             if (imagePath != null) {
-                URL resource = getClass().getClassLoader().getResource(imagePath);
-                String imageFullPath;
-                if (resource != null) {
-                    imageFullPath = resource.getPath();
-                } else {
-                    throw new IllegalArgumentException("Image not found: " + imagePath);
-                }
+                InputStream imageStream = getClass().getClassLoader().getResourceAsStream(imagePath);
+                String imageName = imagePath.split("/")[imagePath.split("/").length - 1];
 
-                messageSender.sendPhotoNotNotify(chatId, imageFullPath, answer, null);
+                messageSender.sendPhotoNotNotify(chatId, imageStream, imageName, answer, null);
                 return;
             }
 
