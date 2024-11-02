@@ -29,7 +29,6 @@ public class MessageSender {
         message.setChatId(String.valueOf(originalMessage.getChatId()));
         message.setText(textToSend);
         message.setReplyMarkup(replyKeyboard);
-        //message.enableMarkdown(true);
 
         executeMessage(message);
     }
@@ -40,7 +39,6 @@ public class MessageSender {
         message.setChatId(chatId);
         message.setText(textToSend);
         message.setReplyMarkup(replyKeyboard);
-        //message.enableMarkdown(true);
 
         executeMessage(message);
     }
@@ -52,7 +50,6 @@ public class MessageSender {
         message.setText(textToSend);
         message.setReplyMarkup(replyKeyboard);
         message.disableNotification();
-        //message.enableMarkdown(true);
 
         executeMessage(message);
     }

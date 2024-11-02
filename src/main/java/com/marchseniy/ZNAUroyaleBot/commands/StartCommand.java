@@ -4,16 +4,13 @@ import com.marchseniy.ZNAUroyaleBot.service.Command;
 import com.marchseniy.ZNAUroyaleBot.service.CommandManager;
 import com.marchseniy.ZNAUroyaleBot.service.support.MessageSender;
 import lombok.Getter;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 import java.io.InputStream;
 
 @Component
-@PropertySource("application.properties")
 public class StartCommand implements Command {
     @Getter
     private final String name = "start";
@@ -24,8 +21,7 @@ public class StartCommand implements Command {
 
     private final MessageSender messageSender;
     private final CommandManager commandManager;
-    @Value("${path.image.start}")
-    private String imagePath;
+    private final String imagePath = "img/start_image.png";
 
     @Lazy
     public StartCommand(MessageSender messageSender, CommandManager commandManager) {
