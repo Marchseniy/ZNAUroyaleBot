@@ -44,6 +44,6 @@ public class FactManager implements Runnable {
             messageSender.sendMessageNotNotify(chatId, answer, null);
         });
 
-        //facter.start();
+        facter.start();
     }
 }
