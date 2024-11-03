@@ -6,6 +6,7 @@ import com.marchseniy.ZNAUroyaleBot.config.BotConfig;
 import com.marchseniy.ZNAUroyaleBot.database.repositories.UserRepository;
 import com.marchseniy.ZNAUroyaleBot.service.exceptions.CommandNotFoundException;
 import com.marchseniy.ZNAUroyaleBot.service.exceptions.NotOkArgsException;
+import com.marchseniy.ZNAUroyaleBot.service.support.KeepAliveService;
 import com.marchseniy.ZNAUroyaleBot.service.support.MessageSender;
 import com.marchseniy.ZNAUroyaleBot.service.support.OnUpdateHandler;
 import jakarta.annotation.PostConstruct;
@@ -45,9 +46,11 @@ public class TelegramBot extends TelegramLongPollingBot {
     private final StartCommand startCommand;
     private final List<Runnable> backgroundTasks;
     private final List<OnUpdateHandler> onUpdateHandlers;
+    private final KeepAliveService keepAliveService;
 
     @PostConstruct
     private void init() {
+        keepAliveService.startKeepAlive();
         setCommandsMenu();
         runBackgroundTasks();
     }
