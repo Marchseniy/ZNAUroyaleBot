@@ -40,6 +40,8 @@ public class ClashRoyaleConfig {
                 "img/tilt.png"));
         add(new Fact("Раньше все шутили, что Илкка - пидр, но в текущих реалиях это действительно так. Комания Supercell ежегодно отмечает гей парад.",
                 "img/ilkka_gay.png"));
+        add(new Fact("Илкка - давний фанат Баскова. Он вдохновился им и сам лично создал модель для новой карты, которая основывалась на его внешности.",
+                "img/ilkka_make_baskov.png"));
     }};
 
     private final Map<String, String> chestNames = new HashMap<>()
