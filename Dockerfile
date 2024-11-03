@@ -29,3 +29,5 @@ COPY --from=build /app/target/ZNAUroyaleBot-0.0.1-SNAPSHOT.jar ZNAUroyaleBot.jar
 
 # Указываем команду для запуска приложения
 ENTRYPOINT ["java", "-jar", "ZNAUroyaleBot.jar"]
+
+EXPOSE 8080
