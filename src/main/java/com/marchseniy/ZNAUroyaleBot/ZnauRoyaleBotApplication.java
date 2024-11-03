@@ -4,10 +4,14 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+import java.util.Collections;
+
 @SpringBootApplication
 @EnableJpaRepositories(basePackages = "com.marchseniy.ZNAUroyaleBot.database.repositories")
 public class ZnauRoyaleBotApplication {
 	public static void main(String[] args) {
-		SpringApplication.run(ZnauRoyaleBotApplication.class, args);
+		SpringApplication app = new SpringApplication(ZnauRoyaleBotApplication.class);
+		app.setDefaultProperties(Collections.singletonMap("server.port", System.getenv("PORT")));
+		app.run(args);
 	}
 }
