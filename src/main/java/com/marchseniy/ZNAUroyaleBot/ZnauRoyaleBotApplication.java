@@ -4,16 +4,17 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-
-import java.util.Collections;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @SpringBootApplication
 @EnableJpaRepositories(basePackages = "com.marchseniy.ZNAUroyaleBot.database.repositories")
-@EnableAspectJAutoProxy(proxyTargetClass = true)
 public class ZnauRoyaleBotApplication {
 	public static void main(String[] args) {
-		SpringApplication app = new SpringApplication(ZnauRoyaleBotApplication.class);
-		app.setDefaultProperties(Collections.singletonMap("server.port", System.getenv("PORT")));
-		app.run(args);
+		SpringApplication.run(ZnauRoyaleBotApplication.class, args);
+	}
+
+	@GetMapping("/healthz")
+	public String healthCheck() {
+		return "OK";
 	}
 }
